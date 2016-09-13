@@ -1,12 +1,12 @@
 #
 # GitLab CI: Android v0.2
 #
-# https://hub.docker.com/r/jangrewe/gitlab-ci-android/
-# https://git.faked.org/jan/gitlab-ci-android
+# https://hub.docker.com/r/deanrock/gitlab-ci-android/
+# https://github.com/deanrock/gitlab-ci-android
 #
 
 FROM ubuntu:16.04
-MAINTAINER Jan Grewe <jan@faked.org>
+MAINTAINER Dejan Levec <dejan@dejanlevec.com>
 
 ENV VERSION_SDK_TOOLS "25.1.7"
 ENV VERSION_BUILD_TOOLS "23.0.3"
@@ -39,3 +39,7 @@ RUN unzip /tools.zip -d /sdk && \
     rm -v /tools.zip
 
 RUN (while [ 1 ]; do sleep 5; echo y; done) | ${ANDROID_HOME}/tools/android update sdk -u -a -t ${SDK_PACKAGES}
+
+# no idea why, but it fully works only after executing it the second time :/
+RUN echo 'y' | android update sdk --no-ui
+RUN echo 'y' | android update sdk --no-ui
